@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
-	<title></title>
+	<title>CRUD AngularJS</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-<!--<script src="js/angular.min.js"></script>-->
 </head>
 <body ng-controller="MainCtrl as ctrl">
 <form ng-submit="ctrl.submit()">
@@ -18,23 +17,21 @@
 
 <script type="text/javascript">
 	angular.module('myApp', [])
-		.controller('MainCtrl', ['$scope', function($scope, $http){
+		.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 			$scope.list = [];
 			var self = this;
 			self.submit = function() {
 			  console.log('User clicked submit with ', self.user);
-
-			//$scope.submit = function(){
-				$http.post('php/salva.php', {'nome': $scope.nome, 'email': $scope.email, 'senha': $scope.senha})
+				$http.post('php/salvar.php', {'nome': $scope.nome, 'email': $scope.email, 'senha': $scope.senha}).
 				//console.log('User clicked submit with ', self.user);
 				then(function(response) {
-					console.log('OK '+self.user);
-				    // this callback will be called asynchronously
-				    // when the response is available
+					console.log(response.status);
+					console.log(response.msg);
+
 				  }, function(response) {
-				  	console.log('Error '+self.user);
-				    // called asynchronously if an error occurs
-				    // or server returns response with an error status.
+				  	console.log(response.status);
+				  	console.log(response.msg);
+
 				  });
 
 				/*.success(function(data, status, headers, config){

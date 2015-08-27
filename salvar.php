@@ -1,15 +1,24 @@
-<?php
+?php
+//LOCAL
+$user = 'root';
+$password = 'root';
+$db = 'angularDB';
+$host = 'localhost';
+
+$con = mysqli_connect("localhost", $user, $password, $db);
+
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+
 
 $nome = $_POST['nome']; 
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 
-echo json_encode( array('status' => 1, 'msg' => 'Cadastro efetuado com sucesso!'));
-/*
-$con = mysql_connect('localhost', 'root', '');
-mysql_select_db('angularDB', $con);
 
-//$ins = mysql_query("INSERT INTO users (name, email, pass) VALUES (NULL, '$nome', '$email', '$senha')");
-$ins = "INSERT INTO users (name, email, pass) VALUES (NULL, '$nome', '$email', '$senha')";
-echo $ins;*/
+$ins = mysqli_query($con, "INSERT INTO users VALUES (NULL, '$nome', '$email', '$senha')");
+echo json_encode( array('status' => 1, 'msg' => 'Cadastro efetuado com sucesso!'));
 ?>

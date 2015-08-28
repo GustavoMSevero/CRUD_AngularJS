@@ -20,5 +20,10 @@ $senha = $_POST['senha'];
 
 
 $ins = mysqli_query($con, "INSERT INTO users VALUES (NULL, '$nome', '$email', '$senha')");
-echo json_encode( array('status' => 1, 'msg' => 'Cadastro efetuado com sucesso!'));
+if($ins == 1){
+	echo json_encode( array('status' => 200, 'msg' => 'Cadastro efetuado com sucesso!'));
+
+}else{
+	echo json_encode( array('status' => 0, 'msg' => 'Erro ao cadastrar no banco.'));
+}
 ?>

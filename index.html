@@ -37,8 +37,8 @@
 		};
 
 		$scope.carregarUsuarios = function () {
-			$http.get("php/buscar.php", usuario).success(function (data){
-				//console.log(usuarios);
+			$http.get("php/buscar.php").success(function (data){
+				//console.log(data);
 				$scope.usuarios = data;
 			});
 		};

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="myCrud">
+<head>
+	<title>CRUD AngularJS</title>
+<meta charset="utf8">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap-3.2.0/css/bootstrap.css">
+<style>
+	.jumbotron {
+		width: 500px;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.table {
+		margin-top: 20px;
+	}
+	.form-control {
+		margin-bottom: 5px;
+	}
+</style>
+<script type="text/javascript">
+	angular.module("myCrud", []);
+	angular.module("myCrud").controller("myCrudCtrl", function ($scope, $http){
+		$scope.tit = "CRUD AngularJS e PHP";
+
+		$scope.adicionarUsuario = function (usuarios) {
+			//console.log(usuario);
+			$http.post("php/salvar.php", usuario).success(function (data){
+				delete $scope.usuario;
+				$scope.contatoForm.$setPristine();
+				carregarUsuarios();
+
+			}).error(function (data, status) {
+				$scope.message = "Aconteceu um problema " + data;
+			});
+		};
+
+		$scope.carregarUsuarios = function () {
+			$http.get("php/buscar.php", usuario).success(function (data){
+				//console.log(usuarios);
+				$scope.usuarios = data;
+			});
+		};
+
+	});
+
+</script>
+</head>
+<body ng-controller="myCrudCtrl">
+	<div class="jumbotron">
+		<h4>{{tit}}</h4>
+
+		<table class="table">
+			<tr>
+				<td>Nome</td>
+				<td>Email</td>
+				<td>Password</td>
+			</tr>
+			<tr ng-repeat="usuario in usuarios">
+				<td>{{usuario.nome}}</td>
+				<td>{{usuario.email}}</td>
+				<td>{{usuario.pass}}</td>
+			</tr>
+		</table>
+
+		<hr>
+
+		<form name="usuarioForm">
+			<input class="form-control" type="text" ng-model="usuario.nome" placeholder="Nome">
+			<input class="form-control" type="text" ng-model="usuario.email" placeholder="Email">
+			<input class="form-control" type="text" ng-model="usuario.pass" placeholder="Senha">
+		</form>
+
+		<button class="btn btn-primary" ng-click="adicionarUsuario(usuarios)">Adicionar</button>
+	</div>
+
+</body>
+</html>

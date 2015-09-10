@@ -13,13 +13,13 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+$nome = $request->nome;
+$email = $request->email;
+$pass = $request->pass;
 
-$nome = $_POST['nome']; 
-$email = $_POST['email'];
-$senha = $_POST['senha'];
-
-
-$ins = mysqli_query($con, "INSERT INTO users VALUES (NULL, '$nome', '$email', '$senha')");
+$ins = mysqli_query($con, "INSERT INTO users VALUES (NULL, '$nome', '$email', '$pass')");
 if($ins == 1){
 	echo json_encode( array('status' => 200, 'msg' => 'Cadastro efetuado com sucesso!'));
 

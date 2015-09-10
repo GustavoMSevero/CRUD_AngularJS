@@ -21,30 +21,28 @@
 </style>
 <script type="text/javascript">
 	angular.module("myCrud", []);
-	angular.module("myCrud").controller("myCrudCtrl", function ($scope, $http){
+
+	angular.module("myCrud").controller("myCrudCtrl", function ($scope, $http) {
 		$scope.tit = "CRUD AngularJS e PHP";
 
-		$scope.adicionarUsuario = function (usuarios) {
-			//console.log(usuario);
+		$scope.adicionarUsuario = function (usuario) {
 			$http.post("php/salvar.php", usuario).success(function (data){
 				delete $scope.usuario;
-				$scope.contatoForm.$setPristine();
-				carregarUsuarios();
-
-			}).error(function (data, status) {
-				$scope.message = "Aconteceu um problema " + data;
+				$scope.usuarioForm.$setPristine();
+				carregarUsuario();
 			});
 		};
 
-		$scope.carregarUsuarios = function () {
+		var carregarUsuario = function () {
 			$http.get("php/buscar.php").success(function (data){
 				//console.log(data);
 				$scope.usuarios = data;
 			});
 		};
 
-	});
+		carregarUsuario();
 
+	});
 </script>
 </head>
 <body ng-controller="myCrudCtrl">
@@ -58,7 +56,7 @@
 				<td>Password</td>
 			</tr>
 			<tr ng-repeat="usuario in usuarios">
-				<td>{{usuario.nome}}</td>
+				<td>{{usuario.name}}</td>
 				<td>{{usuario.email}}</td>
 				<td>{{usuario.pass}}</td>
 			</tr>
@@ -72,7 +70,7 @@
 			<input class="form-control" type="text" ng-model="usuario.pass" placeholder="Senha">
 		</form>
 
-		<button class="btn btn-primary" ng-click="adicionarUsuario(usuarios)">Adicionar</button>
+		<button class="btn btn-primary" ng-click="adicionarUsuario(usuario)">Adicionar</button>
 	</div>
 
 </body>

@@ -4,6 +4,7 @@
 	<title>CRUD AngularJS</title>
 <meta charset="utf8">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+<script type="text/javascript" src="js/xeditable.js"></script>
 <link rel="stylesheet" type="text/css" href="bootstrap-3.2.0/css/bootstrap.css">
 <style>
 	.jumbotron {
@@ -20,7 +21,7 @@
 	}
 </style>
 <script type="text/javascript">
-	angular.module("myCrud", []);
+	angular.module("myCrud", ["xeditable"]);
 
 	angular.module("myCrud").controller("myCrudCtrl", function ($scope, $http) {
 		$scope.tit = "CRUD AngularJS e PHP";
@@ -40,6 +41,12 @@
 			});
 		};
 
+		$scope.apagarUsuario = function (usuario) {
+			$http.delete("php/apagar.php", {params: {id: usuario}}).success(function (data, status){
+				carregarUsuario();
+			});
+		};
+
 		carregarUsuario();
 
 	});
@@ -51,14 +58,18 @@
 
 		<table class="table">
 			<tr>
-				<td>Nome</td>
-				<td>Email</td>
-				<td>Password</td>
+				<td><b>Nome</b></td>
+				<td><b>Email</b></td>
+				<td><b>Password</b></td>
+				<td></td>
+				<td></td>
 			</tr>
 			<tr ng-repeat="usuario in usuarios">
-				<td>{{usuario.name}}</td>
+				<td>{{usuario.name}}</td><!-- <a href="#" editable-text="usuario.name">{{ usuario.name || "empty" }}</a>-->
 				<td>{{usuario.email}}</td>
 				<td>{{usuario.pass}}</td>
+				<td><a href="editar.html?id={{usuario.id}}" class="btn btn-xs btn-primary">Editar</a></td>
+				<td><button class="btn btn-xs btn-danger" ng-click="apagarUsuario(usuario.id)">Apagar</button></td>
 			</tr>
 		</table>
 

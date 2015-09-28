@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="editaCrud">
+<head>
+	<title>CRUD AngularJS</title>
+<meta charset="utf8">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap-3.2.0/css/bootstrap.css">
+<style>
+	.jumbotron {
+		width: 500px;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.table {
+		margin-top: 20px;
+	}
+	.form-control {
+		margin-bottom: 5px;
+	}
+</style>
+<script type="text/javascript">
+	angular.module("editaCrud", []);
+
+	angular.module("editaCrud").controller("editaCtrl", function ($scope, $http) {
+
+		var carregaUsuario = function () {
+			$http.get("php/buscaPEdicao.php", {params: {id: usuario}}).success(function (data){
+				console.log(data);
+				$scope.usuario = data;
+			});
+		};
+
+		carregaUsuario();
+
+	});
+</script>
+</head>
+<body ng-controller="editaCtrl">
+	<div class="jumbotron">
+		<h4>{{tit}}</h4>
+
+		<table class="table">
+			<tr>
+				<td><b>Nome</b></td>
+				<td><b>Email</b></td>
+				<td><b>Password</b></td>
+			</tr>
+			<tr ng-repeat="usuario in usuarios">
+				<td><input type="text" ng-model="usuario.newName" value="{{usuario.name}}">{{usuario.name}}</td>
+				<td><input type="text" ng-model="usuario.newEmail" value="{{usuario.email}}">{{usuario.email}}</td>
+				<td><input type="text" ng-model="usuario.newPass" value="{{usuario.pass}}">{{usuario.pass}}</td>
+			</tr>
+		</table>
+
+	</div>
+
+</body>
+</html>

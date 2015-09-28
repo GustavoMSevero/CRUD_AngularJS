@@ -25,7 +25,7 @@
 	angular.module("editaCrud").controller("editaCtrl", function ($scope, $http) {
 
 		var carregaUsuario = function () {
-			$http.get("php/buscaPEdicao.php", {params: {id: usuario}}).success(function (data){
+			$http.get("php/edicao.php", {params: {id: usuario}}).success(function (data){
 				console.log(data);
 				$scope.usuario = data;
 			});

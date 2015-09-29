@@ -21,20 +21,17 @@
 </style>
 <script type="text/javascript">
 	angular.module("editaCrud", []);
-
 	angular.module("editaCrud").controller("editaCtrl", function ($scope, $http) {
 
 		var carregaUsuario = function (usuario) {
 			//console.log(usuario);
 			//$http.get("php/buscaPEdicao.php", {params: {id: usuario}}).success(function (data){
-			$http.get("php/buscaPEdicao.php?id=usuario").success(function (data){
-				console.log(id);
+			$http.get("php/buscaPEdicao.php?id="+usuario).success(function (data){
+				console.log(usuario);
 				//$scope.usuario = data;
 			});
 		};
-
 		carregaUsuario();
-
 	});
 </script>
 </head>

@@ -1,4 +1,4 @@
-?php
+<?php
 //LOCAL
 $user = 'root';
 $password = 'root';
